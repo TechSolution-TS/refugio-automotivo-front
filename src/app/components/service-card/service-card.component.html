@@ -1,0 +1,40 @@
+<div class="service-card" [style.background-image]="'url(' + backgroundImage + ')'">
+  <!-- Dark overlay para legibilidade -->
+  <div class="card-overlay"></div>
+  
+  <div class="card-content">
+    <!-- Header compacto -->
+    <div class="card-header">
+      <div class="card-badge">
+        <span class="badge-text">{{ getTipo() }}</span>
+      </div>
+      <div class="card-price-tag">
+        <span class="price-currency">R$</span>
+        <span class="price-amount">{{ servico.preco.toFixed(0) }}</span>
+      </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="card-main">
+      <h3 class="card-title">{{ getNomeSimplificado() }}</h3>
+      <p class="card-description">{{ servico.descricao }}</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="card-time">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>{{ servico.tempoMedio }}</span>
+      </div>
+      <button class="card-button">
+        Ver detalhes
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

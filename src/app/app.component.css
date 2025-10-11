@@ -1,0 +1,66 @@
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f4a66 0%, #2a6690 50%, #3279a8 100%);
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #1f4a66 0%, #2a6690 50%, #1f4a66 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.header-content {
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-icon {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fafbfc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.brand-text {
+  flex: 1;
+}
+
+.brand-name {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #fafbfc;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-tagline {
+  font-size: 0.875rem;
+  color: rgba(250, 251, 252, 0.8);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.app-main {
+  padding-top: 120px;
+  padding-bottom: 3rem;
+}

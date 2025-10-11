@@ -1,0 +1,103 @@
+<app-welcome-modal
+  *ngIf="showWelcomeModal"
+  (close)="onCloseWelcomeModal()"
+  (clienteFound)="onClienteFound($event)">
+</app-welcome-modal>
+
+<div class="service-list-container">
+  <h2 class="services-title">Escolha seu Serviço</h2>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Carregando serviços...</p>
+  </div>
+
+  <!-- Error State
+  <div *ngIf="error && !loading" class="error-container">
+    <p class="error-text">{{ error }}</p>
+    <button class="retry-button" (click)="loadServicos()">Tentar Novamente</button>
+  </div> -->
+
+  <!-- Tabs Navigation -->
+  <div *ngIf="!loading && !error" class="tabs-container">
+    <button 
+      class="tab-button"
+      [class.active]="activeTab === 'limpeza'"
+      (click)="setActiveTab('limpeza')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/>
+        <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>
+      </svg>
+      <span>Limpeza</span>
+      <div class="tab-badge" *ngIf="servicosLimpeza.length > 0">{{ servicosLimpeza.length }}</div>
+    </button>
+
+    <button 
+      class="tab-button"
+      [class.active]="activeTab === 'manutencao'"
+      (click)="setActiveTab('manutencao')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+      <span>Manutenção</span>
+      <div class="tab-badge" *ngIf="servicosManutencao.length > 0">{{ servicosManutencao.length }}</div>
+    </button>
+  </div>
+
+  <!-- Services Grid - Limpeza -->
+  <div *ngIf="!loading && !error && activeTab === 'limpeza'" class="services-grid">
+    <app-service-card
+      *ngFor="let servico of servicosLimpeza"
+      [servico]="servico"
+      (click)="onServiceClick(servico)">
+    </app-service-card>
+    
+    <div *ngIf="servicosLimpeza.length === 0" class="empty-state">
+      <p>Nenhum serviço de limpeza disponível no momento.</p>
+    </div>
+  </div>
+
+  <!-- Services Grid - Manutenção -->
+  <div *ngIf="!loading && !error && activeTab === 'manutencao'" class="services-grid">
+    <app-service-card
+      *ngFor="let servico of servicosManutencao"
+      [servico]="servico"
+      [manutencao]="true"
+      (click)="onServiceClick(servico)">
+    </app-service-card>
+
+    <div *ngIf="servicosManutencao.length === 0" class="empty-state">
+      <p>Nenhum serviço de manutenção disponível no momento.</p>
+    </div>
+  </div>
+
+  <!-- Info Banner -->
+  <div class="info-banner">
+    <div class="info-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+    </div>
+    <div>
+      <h3 class="info-title">Serviço na sua porta</h3>
+      <p class="info-description">
+        Não perca tempo! Buscamos seu veículo onde você estiver e devolvemos impecável.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<app-service-modal
+  *ngIf="selectedServico"
+  [servico]="selectedServico"
+  (close)="onCloseModal()"
+  (solicitacaoSuccess)="onSolicitacaoSuccess()">
+</app-service-modal>
+
+<app-success-modal
+  *ngIf="showSuccessModal"
+  (close)="onCloseSuccessModal()">
+</app-success-modal>
