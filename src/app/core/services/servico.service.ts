@@ -8,7 +8,7 @@ import { Servico } from '../models/servico.model';
   providedIn: 'root'
 })
 export class ServicoService {
-  private apiUrl = `${environment.apiUrl}/servicos`;
+  private apiUrl = `api/servicos`;
 
   constructor(private http: HttpClient) {}
 
