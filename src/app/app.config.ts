@@ -2,12 +2,16 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { apiKeyInterceptor } from './core/interceptors/api-key.interceptor';
+import { baseUrlInterceptor } from './core/interceptors/base-url.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter([]),
     provideHttpClient(
-      withInterceptors([apiKeyInterceptor])
+      withInterceptors([
+        baseUrlInterceptor,
+        apiKeyInterceptor
+      ])
     )
   ]
 };
