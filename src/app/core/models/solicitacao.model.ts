@@ -9,4 +9,5 @@ export interface SolicitacaoRequest {
     };
     endereco: Endereco;
     servicoUuid: string;
+    premiacao: string
 }

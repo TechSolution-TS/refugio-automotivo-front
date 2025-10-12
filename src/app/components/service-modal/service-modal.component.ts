@@ -132,7 +132,8 @@ export class ServiceModalComponent implements OnInit {
         endereco: endereco
       },
       endereco: endereco,
-      servicoUuid: this.servico.uuid
+      servicoUuid: this.servico.uuid,
+      premiacao: ''
     };
 
     this.solicitacaoService.criarSolicitacao(solicitacao).subscribe({

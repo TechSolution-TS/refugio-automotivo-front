@@ -106,6 +106,11 @@ export class WelcomeModalComponent implements OnInit {
     
     const total = this.cliente.totalSolicitacoes || 0;
     const recompensasAlcancadas = this.recompensas.filter(r => r.lavagens == (total + 1));
+    
+    if (recompensasAlcancadas[0] != null) {
+      sessionStorage.setItem('recompensaAtual', JSON.stringify(recompensasAlcancadas[0].descricao));
+    } 
+
     return recompensasAlcancadas[0] || null;
   }
 
