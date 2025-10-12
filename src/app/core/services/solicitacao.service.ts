@@ -8,7 +8,7 @@ import { SolicitacaoRequest } from '../models/solicitacao.model';
   providedIn: 'root'
 })
 export class SolicitacaoService {
-  private apiUrl = `api/solicitacoes`;
+  private apiUrl = `/api/solicitacoes`;
 
   constructor(private http: HttpClient) {}
 
