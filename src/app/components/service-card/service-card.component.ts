@@ -44,6 +44,10 @@ export class ServiceCardComponent implements OnInit {
       ServiceCardComponent.availableImages = [...this.images];
     }
 
+    if (this.servico.nome.includes('Moto')) {
+      return '/assets/images/rev-mot.png';
+    }
+
     const randomIndex = Math.floor(Math.random() * ServiceCardComponent.availableImages.length);
     const selectedImage = ServiceCardComponent.availableImages[randomIndex];
 
@@ -65,12 +69,14 @@ export class ServiceCardComponent implements OnInit {
   getTipo(): string {
     if (this.servico.nome.includes('SUV')) return 'SUV';
     if (this.servico.nome.includes('Caminhonete')) return 'Caminhonete';
+    if (this.servico.nome.includes('Aplicativo / Taxi')) return 'Aplicativo / Taxi';
+    if (this.servico.nome.includes('Sedan / Hatch')) return 'Aplicativo / Taxi';
     if (this.servico.nome.includes('Carro')) return 'Carro';
     if (this.servico.nome.includes('Moto')) return 'Moto';
     return '';
   }
 
   getNomeSimplificado(): string {
-    return this.servico.nome.replace(/SUV|Caminhonete/g, '').trim();
+    return this.servico.nome.replace(/SUV|Caminhonete|Sedan|Hatch|Aplicativo|Taxi|Moto/g, '').trim();
   }
 }
