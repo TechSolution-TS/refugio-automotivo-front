@@ -70,7 +70,7 @@ export class ServiceCardComponent implements OnInit {
     if (this.servico.nome.includes('SUV')) return 'SUV';
     if (this.servico.nome.includes('Caminhonete')) return 'Caminhonete';
     if (this.servico.nome.includes('Aplicativo  Taxi')) return 'Aplicativo / Taxi';
-    if (this.servico.nome.includes('Sedan  Hatch')) return 'Aplicativo / Taxi';
+    if (this.servico.nome.includes('Sedan  Hatch')) return 'Sedan / Hatch';
     if (this.servico.nome.includes('Carro')) return 'Carro';
     if (this.servico.nome.includes('Moto')) return 'Moto';
     return '';
