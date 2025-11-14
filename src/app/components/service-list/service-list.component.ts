@@ -7,7 +7,6 @@ import { ServiceModalComponent } from '../service-modal/service-modal.component'
 import { WelcomeModalComponent } from '../welcome-modal/welcome-modal.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 
-
 @Component({
   selector: 'app-service-list',
   standalone: true,
@@ -23,7 +22,10 @@ export class ServiceListComponent implements OnInit {
   error: string | null = null;
   activeTab: 'limpeza' | 'manutencao' = 'limpeza';
   showWelcomeModal = true;
-  showSuccessModal = false; 
+  showSuccessModal = false;
+
+  selectedFilter: string = 'todos';
+  availableFilters: string[] = ['todos'];
 
   private limpezaLoaded = false;
   private manutencaoLoaded = false;
@@ -46,6 +48,7 @@ export class ServiceListComponent implements OnInit {
         if (tipo === 'limpeza') {
           this.servicosLimpeza = data;
           this.limpezaLoaded = true;
+          this.updateAvailableFilters();
         } else {
           this.servicosManutencao = data;
           this.manutencaoLoaded = true;
@@ -62,7 +65,55 @@ export class ServiceListComponent implements OnInit {
 
   setActiveTab(tab: 'limpeza' | 'manutencao'): void {
     this.activeTab = tab;
+    this.selectedFilter = 'todos';
     this.loadServicosPorTab(tab);
+  }
+
+
+  updateAvailableFilters(): void {
+    const tiposSet = new Set<string>();
+    tiposSet.add('todos');
+    
+    this.servicosLimpeza.forEach(servico => {
+      const tipo = this.getTipoServico(servico);
+      if (tipo) {
+        tiposSet.add(tipo);
+      }
+    });
+
+    this.availableFilters = Array.from(tiposSet);
+  }
+
+  setFilter(filter: string): void {
+    this.selectedFilter = filter;
+  }
+
+  getFilteredServicos(): Servico[] {
+    if (this.selectedFilter === 'todos') {
+      return this.servicosLimpeza;
+    }
+
+    return this.servicosLimpeza.filter(servico => {
+      const tipo = this.getTipoServico(servico);
+      return tipo === this.selectedFilter;
+    });
+  }
+
+  getTipoServico(servico: Servico): string {
+    if (servico.nome.includes('SUV')) return 'SUV';
+    if (servico.nome.includes('Caminhonete')) return 'Caminhonete';
+    if (servico.nome.includes('Aplicativo  Taxi')) return 'Aplicativo / Taxi';
+    if (servico.nome.includes('Sedan  Hatch')) return 'Sedan / Hatch';
+    if (servico.nome.includes('Carro')) return 'Carro';
+    if (servico.nome.includes('Moto')) return 'Moto';
+    return '';
+  }
+
+  getServicosCount(filter: string): number {
+    if (filter === 'todos') {
+      return this.servicosLimpeza.length;
+    }
+    return this.servicosLimpeza.filter(s => this.getTipoServico(s) === filter).length;
   }
 
   onServiceClick(servico: Servico): void {
@@ -75,7 +126,7 @@ export class ServiceListComponent implements OnInit {
 
   onSolicitacaoSuccess(): void {
     this.selectedServico = null;
-    this.showSuccessModal = true
+    this.showSuccessModal = true;
   }
 
   onCloseSuccessModal(): void {

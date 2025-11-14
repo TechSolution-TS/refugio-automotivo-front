@@ -191,3 +191,89 @@
   line-height: 1.6;
   letter-spacing: 0.01em;
 }
+
+.filters-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(10px);
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.filters-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Filter Chips - Mais compactos */
+.filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.5rem;
+  color: rgba(250, 251, 252, 0.7);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filter-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(250, 251, 252, 0.9);
+  transform: translateY(-1px);
+}
+
+.filter-chip.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.12));
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fafbfc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.filter-label {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.filter-count {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.0625rem 0.375rem;
+  border-radius: 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 900;
+  min-width: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.filter-chip.active .filter-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fafbfc;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filters-container {
+  animation: slideIn 0.3s ease-out;
+}

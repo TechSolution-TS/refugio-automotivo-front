@@ -13,12 +13,6 @@
     <p class="loading-text">Carregando serviços...</p>
   </div>
 
-  <!-- Error State
-  <div *ngIf="error && !loading" class="error-container">
-    <p class="error-text">{{ error }}</p>
-    <button class="retry-button" (click)="loadServicos()">Tentar Novamente</button>
-  </div> -->
-
   <!-- Tabs Navigation -->
   <div *ngIf="!loading && !error" class="tabs-container">
     <button 
@@ -45,16 +39,28 @@
     </button>
   </div>
 
-  <!-- Services Grid - Limpeza -->
+  <!-- ✅ FILTROS (só aparecem na aba Limpeza e se houver mais de um tipo) -->
+  <div *ngIf="!loading && !error && activeTab === 'limpeza' && availableFilters.length > 1" class="filters-container">
+    <button
+      *ngFor="let filter of availableFilters"
+      class="filter-chip"
+      [class.active]="selectedFilter === filter"
+      (click)="setFilter(filter)">
+      <span class="filter-label">{{ filter === 'todos' ? 'Todos' : filter }}</span>
+      <span class="filter-count">{{ getServicosCount(filter) }}</span>
+    </button>
+  </div>
+
+  <!-- Services Grid - Limpeza (com filtro aplicado) -->
   <div *ngIf="!loading && !error && activeTab === 'limpeza'" class="services-grid">
     <app-service-card
-      *ngFor="let servico of servicosLimpeza"
+      *ngFor="let servico of getFilteredServicos()"
       [servico]="servico"
       (click)="onServiceClick(servico)">
     </app-service-card>
     
-    <div *ngIf="servicosLimpeza.length === 0" class="empty-state">
-      <p>Nenhum serviço de limpeza disponível no momento.</p>
+    <div *ngIf="getFilteredServicos().length === 0" class="empty-state">
+      <p>Nenhum serviço encontrado para este filtro.</p>
     </div>
   </div>
 
@@ -89,7 +95,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal de Serviço -->
 <app-service-modal
   *ngIf="selectedServico"
   [servico]="selectedServico"
@@ -97,6 +103,7 @@
   (solicitacaoSuccess)="onSolicitacaoSuccess()">
 </app-service-modal>
 
+<!-- Modal de Sucesso -->
 <app-success-modal
   *ngIf="showSuccessModal"
   (close)="onCloseSuccessModal()">

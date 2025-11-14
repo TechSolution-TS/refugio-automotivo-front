@@ -44,8 +44,10 @@ export class ServiceCardComponent implements OnInit {
       ServiceCardComponent.availableImages = [...this.images];
     }
 
-    if (this.servico.nome.includes('Moto')) {
-      return '/assets/images/rev-mot.png';
+    if (this.servico.nome.includes('Completa Moto')) {
+      return '/assets/images/mot.png';
+    } else if (this.servico.nome.includes('Moto')) {
+      return '/assets/images/mot-2.png';
     }
 
     const randomIndex = Math.floor(Math.random() * ServiceCardComponent.availableImages.length);
